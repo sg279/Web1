@@ -75,7 +75,10 @@ foreach(array_keys($stock_list) as $id) {
   echo "    <item_info>{$item["info"]}</item_info>\n";
   echo "    <item_price>{$item["price"]}</item_price>\n";
   echo "    <item_quantity value=\"0\"><input name=\"{$id}\" type=\"text\" value=\"0\" pattern=\"[0-9]+\" size=\"3\" onchange=\"updateLineCost(this, '{$id}');\" /></item_quantity>\n";
-  echo "    <line_cost>0.00</line_cost>\n";
+  echo "    <line_cost>
+  <input class= \"totals\" value = \"0.00\" type = \"text\" name = \"{$id} cost\" readonly=\"readonly\" id=\"line_cost\">
+  </input>
+  </line_cost>\n";
   echo "  </stock_item>\n\n";
 }
 
@@ -85,13 +88,26 @@ foreach(array_keys($stock_list) as $id) {
 
 <br />
 <div id = "form" display="block">
-<p>Sub-total: <span id="sub_total"></span></p>
 
-<p>Delivery charge: <span id="delivery_charge"></span></p>
+<p>Sub-total:
+<input class = "totals" value = "0.00" type = "text" name = "subtotal" readonly="readonly" id="sub_total">
+</input>
+</p>
 
-<p>VAT: <span id="vat"></span></p>
+<p>Delivery charge:
+  <input class = "totals" value = "0.00" type = "text" name = "deliverycharge" readonly="readonly" id="delivery_charge">
+</input>
+</p>
 
-<p>Total: <span id="total"></span></p>
+<p>VAT:
+  <input class = "totals" value = "0.00" type = "text" name = "vat" readonly="readonly" id="vat">
+</input>
+</p>
+
+<p>Total:
+  <input class = "totals" value = "0.00" type = "text" name = "total" readonly="readonly" id="total">
+</input>
+</p>
 
 <hr />
 

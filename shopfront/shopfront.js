@@ -21,7 +21,8 @@ function getStockItemValue(item_id, element) {
 function setStockItemValue(item_id, element, value) {
   var i = document.getElementById(item_id);
   var e = i.getElementsByTagName(element)[0];  // assume only 1!
-  e.innerHTML = value;
+  var f = e.getElementsByTagName("input")[0];
+  f.value = value;
 }
 
 /*
@@ -46,25 +47,25 @@ function updateSubTotal(){
   var c = document.getElementsByTagName("line_cost");
   let t = 0;
   for (let i = 1; i<c.length; i++){
-    var v = parseFloat(c[i].innerHTML);
+    var v = parseFloat(c[i].getElementsByTagName("input")[0].value);
     t+=v;
   }
-  st.innerHTML = t.toFixed(2);
+  st.value = t.toFixed(2);
 }
 
 function updateDeliveryCharge(){
-  let st=parseFloat(document.getElementById("sub_total").innerHTML);
+  let st=parseFloat(document.getElementById("sub_total").value);
   let dc=0;
   if (st<100) {
     dc=st*0.1;
   }
   var d = document.getElementById("delivery_charge");
-  d.innerHTML = dc.toFixed(2);
+  d.value = dc.toFixed(2);
 }
 
 function updateVat(){
-  let st=parseFloat(document.getElementById("sub_total").innerHTML);
-  let d=parseFloat(document.getElementById("delivery_charge").innerHTML);
+  let st=parseFloat(document.getElementById("sub_total").value);
+  let d=parseFloat(document.getElementById("delivery_charge").value);
   let v = document.getElementById("vat");
   let vc=0;
   if (d!=0) {
@@ -73,40 +74,46 @@ function updateVat(){
   else{
     vc = st*0.2
   }
-  v.innerHTML = vc.toFixed(2);
+  v.value = vc.toFixed(2);
 }
 
 function updateTotal(){
-  let st=parseFloat(document.getElementById("sub_total").innerHTML);
-  let d=parseFloat(document.getElementById("delivery_charge").innerHTML);
-  let v = parseFloat(document.getElementById("vat").innerHTML);
+  let st=parseFloat(document.getElementById("sub_total").value);
+  let d=parseFloat(document.getElementById("delivery_charge").value);
+  let v = parseFloat(document.getElementById("vat").value);
   let tc = st+d+v;
   let t = document.getElementById("total");
-  t.innerHTML = tc.toFixed(2);
+  t.value = tc.toFixed(2);
 }
 
 function confirm() {
-  let c = "<p>Is this information correct?\n</p>";
-  let form = document.getElementById("form");
-  let confirmForm = document.getElementById("confirm");
-  form.style.display="none";
-  confirmForm.style.display="block";
-  let n ="";
-  let t="";
-  let ct = form.getElementsByTagName("select")[0];
-  t = ct.parentNode.childNodes[0].nodeValue;
-  n = ct.options[ct.options.selectedIndex].textContent;
-  c+="<p>"+t+" "+n+"\n</p>";
-  let info = form.getElementsByTagName("input");
-  for (let i=0; i<info.length-1; i++){
-    let t = info[i].parentNode.textContent;
-    let n = info[i].value;
+  let st=parseFloat(document.getElementById("sub_total").value);
+  if (st!=0) {
+    let c = "<p>Is this information correct?\n</p>";
+    let form = document.getElementById("form");
+    let confirmForm = document.getElementById("confirm");
+    form.style.display="none";
+    confirmForm.style.display="block";
+    let n ="";
+    let t="";
+    let ct = form.getElementsByTagName("select")[0];
+    t = ct.parentNode.childNodes[0].nodeValue;
+    n = ct.options[ct.options.selectedIndex].textContent;
     c+="<p>"+t+" "+n+"\n</p>";
+    let info = form.getElementsByTagName("input");
+    for (let i=0; i<info.length-1; i++){
+      let t = info[i].parentNode.textContent;
+      let n = info[i].value;
+      c+="<p>"+t+" "+n+"\n</p>";
+    }
+    c+="<input type=\"submit\" value=\"Yes\" onclick=\"yes();\"/>";
+    c+="<input type=\"button\" value=\"No\" onclick=\"no();\">";
+    confirmForm.innerHTML=c;
+    let a =0;
   }
-  c+="<input type=\"submit\" value=\"Yes\" onclick=\"yes();\"/>";
-  c+="<input type=\"button\" value=\"No\" onclick=\"no();\">";
-  confirmForm.innerHTML=c;
-  let a =0;
+  else {
+    alert("You have not selected any products!")
+  }
 }
 
 function no(){
@@ -121,6 +128,7 @@ function yes(){
   form.onsubmit="";
   form.action="shopback.php";
   form.submit();
+
 }
 
 function cardCheck(){

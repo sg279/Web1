@@ -55,10 +55,14 @@ item_price {
 
 line_cost {
   border-spacing: 0.4rem;
-  text-align: right;
   vertical-align: middle;
   padding: 0.5rem;
   display: table-cell;
+}
+
+.totals {
+  border: 0;
+  font-size:16px;
 }
 
 .heading {
