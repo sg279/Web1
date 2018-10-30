@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Receipt</title>
+  <title>Update stock</title>
 </head>
 
 <body>
@@ -21,6 +21,8 @@ function getFormInfo($k) {
 $f = fopen(STOCK_FILE_NAME, "r");
 $i = 0;
 $stock_list=[];
+//For each array in the stock file, set the properties to those found in the post array for the property keys based on the first item
+//in the row and add the row as a comma seperated string to an array. Then wipe the file and write the array to it as a csv
 while (($row = fgetcsv($f, STOCK_FILE_LINE_SIZE)) != false) {
   $id = $row[0];
   $row[1]=getFormInfo($id."_name");

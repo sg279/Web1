@@ -13,6 +13,7 @@
 
 <?php
 define("STOCK_FILE_LINE_SIZE", 1000);
+//Print each line in the transactions file
 $f = fopen("transactions.txt","r");
 while (($row = fgets($f, STOCK_FILE_LINE_SIZE)) != false) {
   echo "<p>".$row."</p>";

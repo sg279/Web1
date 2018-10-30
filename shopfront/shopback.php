@@ -24,6 +24,7 @@ function getFormInfo($k) {
   return isset($_POST[$k]) ? htmlspecialchars($_POST[$k]) : null;
 }
 
+//Return the formatted string based on the parameter
 function format($k) {
   switch($k){
     case 'transactionId':
@@ -65,22 +66,26 @@ function format($k) {
     case 'email':
       return "Email";
       break;
+    //If the parameter doesn't match any of the cases (is an item cost), capitalise the first letter and remove underscores
     default:
       return str_replace ("_", " ", ucfirst($k));
   }
 }
 
+//If there is no post data return an error message
 if(sizeof($_POST)==0){
   echo "Error! No transaction";
 }
 else{
 $subTotal_Reached = false;
+//For each value pair in the post array, up until the sub total, if the value isn't 0 (an item the user has purchased) print the values pair.
+//After the subtotal is reached print the value pair unless its the credit card code. If the value pair is the card number replace the digits
+//except the first and last two with x's
 foreach (array_keys($_POST) as $k) {
   $v = getFormInfo($k);
   if (!$subTotal_Reached) {
     if ($v!=0) {
       echo format($k).": {$v}<br />\n";
-      //updateStock($k, $v);
     }
     if ($k=="subtotal") {
       $subTotal_Reached=true;

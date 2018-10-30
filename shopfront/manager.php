@@ -1,4 +1,8 @@
 <?php
+
+
+//This code is identical to the code in shopfront.php
+
 clearstatcache(); // http://php.net/manual/en/function.clearstatcache.php
 
 define("STOCK_FILE_NAME", "stock.txt"); // Local file - insecure!
@@ -52,6 +56,7 @@ fclose($f);
 
 <hr />
 
+<!-- This code is identical to the code in shopfront.php except the stock item properties are changed to inputs and the form redirects to managerUpdate.php-->
 <form name="order" method="POST" action="managerUpdate.php" id="master">
 <stock_list>
 

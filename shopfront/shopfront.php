@@ -77,12 +77,14 @@ foreach(array_keys($stock_list) as $id) {
   echo "    <item_info>{$item["info"]}</item_info>\n";
   echo "    <item_price>{$item["price"]}</item_price>\n";
   echo "    <item_quantity value=\"0\"><input onFocus=\"this.select()\" name=\"{$id}\" type=\"text\" value=\"0\" pattern=\"[0-9]+\" size=\"3\" onchange=\"updateLineCost(this, '{$id}');\" /></item_quantity>\n";
+  //Display out of stock if the stock is 0
   if ($item["stock"]==0) {
     echo "    <item_stock>Out of stock!</item_stock>\n";
   }
   else {
     echo "    <item_stock>{$item["stock"]}</item_stock>\n";
   }
+  //Create the line cost as an input so it is submitted with the form
   echo "    <line_cost>
   <input class= \"totals\" value = \"0.00\" type = \"text\" name = \"{$id} cost\" readonly=\"readonly\" id=\"line_cost\">
   </input>
