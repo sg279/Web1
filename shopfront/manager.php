@@ -79,7 +79,7 @@ foreach(array_keys($stock_list) as $id) {
   echo "    <item_name><input onFocus=\"this.select()\" name=\"{$id}_name\" value=\"{$item["name"]}\" type=\"text\"/></item_name>\n";
   echo "    <item_info><input onFocus=\"this.select()\" name=\"{$id}_info\" value=\"{$item["info"]}\" type=\"text\"/></item_info>\n";
   echo "    <item_price><input onFocus=\"this.select()\" name=\"{$id}_price\" value={$item["price"]} type=\"text\" onchange=\"checkCost(this);\"/></item_price>\n";
-  echo "    <item_stock><input onFocus=\"this.select()\" name=\"{$id}_stock\" value={$item["stock"]} type=\"text\" pattern=\"[0-9]+\" size=\"3\"/></item_stock>\n";
+  echo "    <item_stock><input onFocus=\"this.select()\" name=\"{$id}_stock\" value={$item["stock"]} type=\"text\" onchange=\"checkStock(this);\" size=\"3\"/></item_stock>\n";
   echo "  </stock_item>\n\n";
 }
 

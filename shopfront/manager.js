@@ -16,6 +16,20 @@ function checkCost(price) {
     alert("Invalid price!");
     var p = 0;
     p=p.toFixed(2);
-    price.value=0.00;
+    price.value=p;
+  }
+}
+
+/*
+ * This function checks if the value the user has entered to set the stock of the item is valid
+ * item_id: string (id of item)
+ * element: string (tag name of element)
+ * stock: string (the stock entered)
+ */
+function checkCost(stock) {
+  //If the value entered isn't an integer set the stock to 0
+  if(!Number.isInteger(stock.value)){
+    alert("Invalid stock!");
+    stock.value=0;
   }
 }
