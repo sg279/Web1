@@ -60,6 +60,14 @@ line_cost {
   display: table-cell;
 }
 
+item_stock {
+  text-align: center;
+  vertical-align: middle;
+  border-spacing: 0.4rem;
+  padding: 0.5rem;
+  display: table-cell;
+}
+
 .totals {
   border: 0;
   font-size:16px;

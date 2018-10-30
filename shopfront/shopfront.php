@@ -29,7 +29,8 @@ while (($row = fgetcsv($f, STOCK_FILE_LINE_SIZE)) != false) {
     "photo" => $row[0] . ".jpg",
     "name" => $row[1],
     "info" => $row[2],
-    "price" => $row[3]);
+    "price" => $row[3],
+    "stock" => $row[4]);
   $stock_list[$row[0]] = $stock_item; // Add stock.
 }
 fclose($f);
@@ -60,6 +61,7 @@ fclose($f);
     <item_info class="heading">Description</item_info>
     <item_price class="heading"> &pound; (exc. VAT)</item_price>
     <item_quantity class="heading">Quantity</item_quantity>
+    <item_stock class="heading">Stock</item_stock>
     <line_cost class="heading">Cost</line_cost>
   </stock_item>
 
@@ -74,7 +76,13 @@ foreach(array_keys($stock_list) as $id) {
   echo "    <item_name>{$item["name"]}</item_name>\n";
   echo "    <item_info>{$item["info"]}</item_info>\n";
   echo "    <item_price>{$item["price"]}</item_price>\n";
-  echo "    <item_quantity value=\"0\"><input name=\"{$id}\" type=\"text\" value=\"0\" pattern=\"[0-9]+\" size=\"3\" onchange=\"updateLineCost(this, '{$id}');\" /></item_quantity>\n";
+  echo "    <item_quantity value=\"0\"><input onFocus=\"this.select()\" name=\"{$id}\" type=\"text\" value=\"0\" pattern=\"[0-9]+\" size=\"3\" onchange=\"updateLineCost(this, '{$id}');\" /></item_quantity>\n";
+  if ($item["stock"]==0) {
+    echo "    <item_stock>Out of stock!</item_stock>\n";
+  }
+  else {
+    echo "    <item_stock>{$item["stock"]}</item_stock>\n";
+  }
   echo "    <line_cost>
   <input class= \"totals\" value = \"0.00\" type = \"text\" name = \"{$id} cost\" readonly=\"readonly\" id=\"line_cost\">
   </input>

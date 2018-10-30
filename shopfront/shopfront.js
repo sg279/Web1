@@ -25,11 +25,32 @@ function setStockItemValue(item_id, element, value) {
   f.value = value;
 }
 
+function checkStock(item_id, element, quantity) {
+  var i = document.getElementById(item_id);
+  var e = i.getElementsByTagName(element)[0];  // assume only 1!
+  if (e.innerHTML!="Out of stock"&&e.innerHTML>=quantity.value){
+    return true;
+  }
+  else if(e.innerHTML=="Out of stock"){
+    alert("Not enough stock!");
+    quantity.value=0;
+  }
+  else if(Number.isInteger(parseInt(quantity.value))){
+    alert("Not enough stock!");
+    quantity.value=e.innerHTML;
+  }
+  else {
+    alert("Invalid quantity!");
+    quantity.value=0;
+  }
+}
+
 /*
  * e: object from DOM tree (item_quantity that made )
  * item_id: string (id of item)
  */
 function updateLineCost(e, item_id) {
+  checkStock(item_id, "item_stock", e);
   var p = getStockItemValue(item_id, "item_price");
   var q = e.value;
   var c = p * q; // implicit type conversion
@@ -39,6 +60,7 @@ function updateLineCost(e, item_id) {
   updateDeliveryCharge();
   updateVat();
   updateTotal();
+
   // Also need to update sub_total, delivery_charge, vat, and total.
 }
 
@@ -126,7 +148,7 @@ function no(){
 function yes(){
   let form = document.getElementById("master");
   form.onsubmit="";
-  form.action="shopback.php";
+  form.action="update.php";
   form.submit();
 
 }

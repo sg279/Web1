@@ -12,6 +12,13 @@
 
 <p>
 <?php
+
+define("STOCK_FILE_NAME", "stock.txt"); // Local file - insecure!
+define("STOCK_FILE_LINE_SIZE", 256); // 256 line length should enough.
+
+define("PHOTO_DIR", "piks/large/"); // large photo, local files, insecure!
+define("THUMBNAIL_DIR", "piks/thumbnail/"); // thumbnail, local files, insecure!
+
 // http://php.net/manual/en/function.htmlspecialchars.php
 function getFormInfo($k) {
   return isset($_POST[$k]) ? htmlspecialchars($_POST[$k]) : null;
@@ -19,6 +26,12 @@ function getFormInfo($k) {
 
 function format($k) {
   switch($k){
+    case 'transactionId':
+      return "Transaction ID";
+      break;
+    case 'date':
+      return "Date";
+      break;
     case 'subtotal':
       return "Sub-total";
       break;
@@ -61,14 +74,13 @@ if(sizeof($_POST)==0){
   echo "Error! No transaction";
 }
 else{
-echo "Transaction ID: ".uniqid()."<br />";
-echo "Date: ".date("d/m/Y")."<br />";
 $subTotal_Reached = false;
 foreach (array_keys($_POST) as $k) {
   $v = getFormInfo($k);
   if (!$subTotal_Reached) {
     if ($v!=0) {
-      echo format($k)." : {$v}<br />\n";
+      echo format($k).": {$v}<br />\n";
+      //updateStock($k, $v);
     }
     if ($k=="subtotal") {
       $subTotal_Reached=true;
@@ -87,7 +99,6 @@ foreach (array_keys($_POST) as $k) {
 
   }
 }
-
 
 }
 
