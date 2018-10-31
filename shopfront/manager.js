@@ -6,7 +6,7 @@
  */
 function checkCost(price) {
   //If the value entered can be parsed to a float set the cost to the value rounded to 2 decimal places
-  if(!isNaN(parseFloat(price.value))){
+  if(!isNaN(parseFloat(price.value))&&price.value>0){
     var p = parseFloat(price.value);
     p=p.toFixed(2);
     price.value=p;
@@ -26,9 +26,9 @@ function checkCost(price) {
  * element: string (tag name of element)
  * stock: string (the stock entered)
  */
-function checkCost(stock) {
-  //If the value entered isn't an integer set the stock to 0
-  if(!Number.isInteger(stock.value)){
+function checkStock(stock) {
+  //If the value entered isn't a positive integer set the stock to 0
+  if(!Number.isInteger(stock.value/1)||stock.value<0){
     alert("Invalid stock!");
     stock.value=0;
   }

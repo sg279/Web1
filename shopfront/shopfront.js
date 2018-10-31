@@ -35,14 +35,14 @@ function setStockItemValue(item_id, element, value) {
 function checkStock(item_id, element, quantity) {
   var i = document.getElementById(item_id);
   var e = i.getElementsByTagName(element)[0];  // assume only 1!
-  if (e.innerHTML!="Out of stock"&&Number.isInteger(quantity.value)&&e.innerHTML>=quantity.value){
+  if (e.innerHTML!="Out of stock"&&Number.isInteger(quantity.value/1)&&e.innerHTML>=quantity.value&&quantity.value>=0){
     return true;
   }
   else if(e.innerHTML=="Out of stock"){
     alert("Not enough stock!");
     quantity.value=0;
   }
-  else if(Number.isInteger(parseInt(quantity.value))){
+  else if(Number.isInteger(quantity.value/1)&&quantity.value>e.innerHTML){
     alert("Not enough stock!");
     quantity.value=e.innerHTML;
   }

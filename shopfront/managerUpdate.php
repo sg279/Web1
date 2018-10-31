@@ -39,7 +39,7 @@ foreach ($stock_list as $value) {
   fputcsv($f, explode(",", $value));
 }
 fclose($f);
-header( 'Location: https://sg279.host.cs.st-andrews.ac.uk/shopfront/shopfront.php' ) ;
+header( 'Location: https://sg279.host.cs.st-andrews.ac.uk/shopfront/manager.php' ) ;
 exit();
 ?>
 </p>
